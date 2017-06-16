@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'forum',
+    'user',
     'location',
+    'food',
+    'updown',
 ]
+
+# UserProfile 覆盖了 django 内置的 user 表
+AUTH_USER_MODEL = "user.UserProfile"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +84,7 @@ WSGI_APPLICATION = 'chihuoapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chihuo',
+        'NAME': 'chihuobbs',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
