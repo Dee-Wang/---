@@ -13,7 +13,7 @@ class Province(models.Model):
 
     class Meta:
         verbose_name = '省份'
-        verbose_name_plural = '省份'
+        verbose_name_plural = verbose_name
 
 
 # 所在城市
@@ -26,7 +26,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name = '城市'
-        verbose_name_plural = '城市'
+        verbose_name_plural = verbose_name
 
 
 # 具体地点
