@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from user.views import IndexView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+        # 首页URL配置
+    url('^$', IndexView.as_view(), name="index"),
+    ]

@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+<meta charset="utf-8">
+<div class="navbar">
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="{% url 'home:index' %}">??</a>
+                <span class="cursor"></span>
+            </li>
+            <li>
+                <a href="{% url 'topic:list' %}">??</a>
+                <span class="cursor"></span>
+            </li>
+            <li>
+                <a href="{% url 'food:explore' %}">??</a>
+                <span class="cursor"></span>
+            </li>
+            <li>
+                <a href="{% url 'food:list' %}">??</a>
+                <span class="cursor"></span>
+            </li>
+            <li>
+                <a href="{% url 'forum:index' %}">???</a>
+                <span class="cursor"></span>
+            </li>
+        </ul>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'food:create' %}"><button type="button">??</button></a>
+            <div class="user-name">
+                <button type="button" name="user-name-btn" class="user-name-btn">{{ request.user.username }}
+                    <span class="redpoint" style="display: none;"></span>
+                </button>
+                <ul class="user-dropdown">
+                    <a href="{% url 'user:home' user_id=request.user.id %}"><li>??</li></a>
+                    <a id="message">
+                        <li>?? (<span id="msg-count">0</span>)</li>
+                    </a>
+                </ul>
+            </div>
+        {% else %}
+            <a href="{% url 'user:login' %}"><button type="button" name="login" id="login-btn">??</button></a>
+            <a href="{% url 'user:register' %}"><button type="button" name="register" id="register-btn">??</button></a>
+        {% endif %}
+        <form method="post" action="{% url 'search:search' %}">
+            {% csrf_token %}
+            {{ search_form.q | attr:"id:search" | attr:"placeholder:????��"}}
+        </form>
+    </div>
+</div>
