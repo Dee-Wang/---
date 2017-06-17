@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+        <title>首页</title>
+        <script src="http://localhost:8000/webpack-dev-server.js"></script>
+        <link rel="stylesheet" href="{% static 'font/font-awesome-4.5.0/css/font-awesome.min.css' %}" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/vendors.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home_index.css' %}">
+
+        <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/home_index.js' %}"></script>
+    </head>
+    <body>
+        <div class="navbar" id="navbar">
+            <div class="nav">
+                <ul>
+                    <a href="#">
+                        <li>首页<span class="cursor"></span></li>
+                    </a>
+                    <a href="#">
+                        <li>专题<span class="cursor"></span></li>
+                    </a>
+                    <a href="#">
+                        <li>发现<span class="cursor"></span></li>
+                    </a>
+                    <a href="#">
+                        <li>好吃<span class="cursor"></span></li>
+                    </a>
+                </ul>
+
+                <a href="#">
+                  <button type="button" name="button">分享</button>
+                </a>
+                <a href="#" class="user-name">
+                  <button type="button" name="user-name-btn" class="user-name-btn">Rlilyyy</button>
+                  <ul class="user-dropdown">
+                    <li>abc</li>
+                    <li>abc</li>
+                    <li>abc</li>
+                    <li>abc</li>
+                  </ul>
+                </a>
+                <input type="text" name="search" value="寻找好物……" id="search">
+            </div>
+        </div>
+        <div class="container" id="container">
+            <div class="container-top">
+                <div class="desc">
+                    <div class="desc-main">
+
+                        发现好吃的，好玩的
+                    </div>
+                </div>
+                <div class="pineapple-logo">
+                    Pineapple
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+          <div class="chat-bar">
+            pineapple 私信
+          </div>
+          <div class="chat-main">
+            <div class="chat-left">
+              <ul class="chat-users">
+                <li class="users-list-item clearfix">
+                  <div class="portrait"></div>
+                  <p class="name">Rlilyyy</p>
+                </li>
+                <li class="users-list-item current clearfix">
+                  <div class="portrait"></div>
+                  <p class="name">Rlilyyy</p>
+                </li>
+                <li class="users-list-item clearfix">
+                  <div class="portrait"></div>
+                  <p class="name">Rlilyyy</p>
+                </li>
+              </ul>
+            </div>
+            <div class="chat-right">
+              <div class="chat-record">
+                <div class="record-item sender clearfix">
+                  <div class="portrait"></div>
+                  <div class="record">
+                    aspodioanoandoicmaiomcoi
+                  </div>
+                </div>
+
+                <div class="record-item receiver clearfix">
+                  <div class="record">
+                    aspodioanoandoicmaiomcoi
+                  </div>
+                  <div class="portrait"></div>
+                </div>
+                <div class="record-item sender clearfix">
+                  <div class="portrait"></div>
+                  <div class="record">
+                    aspodioanoandoicmaiomcoi
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-sender">
+                <input type="text" name="sender" placeholder="按回车发送私信">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="topic-container">
+            <div class="topic-container-title">
+                <h1><span class="title-hr"></span>精选专题<span class="title-hr"></span></h1>
+            </div>
+            <div class="topic-container-main">
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic1.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">「送男友」10款格调手机壳</h3></a>
+                        <a href="#"><h4 class="desc-content">给男友买百元以上手机壳的姑娘，都是真~爱~啊！毕竟对于一买就是三五个，手机壳随着心情换的女生而言，廉价...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><a href="#"><i class="fa fa-share-alt"></i></a></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic2.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">家庭个护小能手，健康携手到白头</h3></a>
+                        <a href="#"><h4 class="desc-content">怀揣着对生活细节更高的要求，个人护理小家电已经成为了提高生活品质的一部分。现在市面上众多个性突出、功...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic3.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">Take Care Of Your Teeth</h3></a>
+                        <a href="#"><h4 class="desc-content">No matter what your age,you need to take care of your teeth and mouth.When your mouth is...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic4.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">Take Care Of Your Teeth</h3></a>
+                        <a href="#"><h4 class="desc-content">No matter what your age,you need to take care of your teeth and mouth.When your mouth is...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic5.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">Take Care Of Your Teeth</h3></a>
+                        <a href="#"><h4 class="desc-content">No matter what your age,you need to take care of your teeth and mouth.When your mouth is...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic6.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">Take Care Of Your Teeth</h3></a>
+                        <a href="#"><h4 class="desc-content">No matter what your age,you need to take care of your teeth and mouth.When your mouth is...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+                <div class="topic-item">
+
+                    <a href="#"><div class="topic-item-img" style="background-image: url('{% static 'images/topic7.jpg' %}')"></div></a>
+                    <div class="topic-item-desc">
+                        <a href="#"><h3 class="desc-title">Take Care Of Your Teeth</h3></a>
+                        <a href="#"><h4 class="desc-content">No matter what your age,you need to take care of your teeth and mouth.When your mouth is...</h4></a>
+                    </div>
+                    <div class="topic-item-info">
+                        <i class="fa fa-heart"><span class="num">153</span></i>
+                        <i class="fa fa-comments"><span class="num">97</span></i>
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
