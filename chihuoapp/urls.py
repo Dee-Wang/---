@@ -29,4 +29,7 @@ urlpatterns = [
     # 用户相关的url
     url(r'^user/', include('user.urls', namespace="user")),
 
+    # 验证码部分
+    url(r'^captcha/', include('captcha.urls')),
+
     ]

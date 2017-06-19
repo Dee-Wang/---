@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'blog',
     'topic',
     'usercomments',
+    'captcha',
 ]
 
 # UserProfile 覆盖了 django 内置的 user 表
@@ -142,3 +143,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# 发送邮件的相关的配置
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'dee_wang@sina.com'
+EMAIL_HOST_PASSWORD = 'walm0009'
+EMAIL_USE_TSL = False
+DEFAULT_FROM_EMAIL = 'Peter <dee_wang@sina.com>'

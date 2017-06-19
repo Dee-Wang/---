@@ -53,7 +53,7 @@ class BoardComment(UserComment):
 
 # 对帖子的评论， 继承上面的抽象类，填充评论的对象内容
 class ForumComment(UserComment):
-    forum_post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name="comments", verbose_name="帖子")
+    forum_post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name="comments", verbose_name="帖子",null=True, blank=True)
 
     class Meta:
         verbose_name = "帖子评价"
@@ -61,7 +61,7 @@ class ForumComment(UserComment):
 
 
 # 对博文的评论， 继承上面的抽象类，填充评论的对象内容
-class ForumComment(UserComment):
+class BlogComment(UserComment):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="comments", verbose_name="博文")
 
     class Meta:

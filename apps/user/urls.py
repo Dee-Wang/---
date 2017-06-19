@@ -3,20 +3,20 @@ __author__ = 'Dee'
 __date__ = '17-6-19 上午10:25'
 from django.conf.urls import url
 
-from .views import (user_login, user_register, )
+from .views import LoginView, RegisterView,ActiveView
 
 urlpatterns = [
     # 用户登录页面
-    url(r'^login/$', user_login, name='login'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
 
     # # 用户登出页面
     # url(r'^logout/$', LogoutView.as_view(), name="logout"),
     #
     # 用户注册页面
-    url(r'^register/$', user_register, name="register"),
+    url(r'^register/$', RegisterView.as_view(), name="register"),
     #
-    # # 用户激活页面
-    # url(r'^active_user/(?P<active_code>.*)/$', ActiveView.as_view(), name="active_user"),
+    # 用户激活页面
+    url(r'^active_user/(?P<active_code>.*)/$', ActiveView.as_view(), name="active_user"),
     #
     # # 用户忘记密码界面
     # url(r'^forget_pwd/', ForgetPasswordView.as_view(), name="forget_pwd"),
