@@ -13,13 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from user.views import IndexView
 
 urlpatterns = [
+
+    # 后台管理页面url
     url(r'^admin/', admin.site.urls),
-        # 首页URL配置
+
+    # 首页URL配置
     url('^$', IndexView.as_view(), name="index"),
+
+    # 用户相关的url
+    url(r'^user/', include('user.urls', namespace="user")),
+
     ]

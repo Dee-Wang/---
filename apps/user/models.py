@@ -22,6 +22,7 @@ class UserProfile(AbstractUser):
     avatar = models.ImageField(max_length=128, upload_to='users/avatar/%Y/%m/%d', verbose_name='头像',default="image/superman.jpg")
     # background_image = models.ImageField(max_length=256, upload_to='user/background_img/%Y/%m/%d', blank=True, null=True, verbose_name="主页背景")
     following = models.ManyToManyField('self', blank=True, related_name='followers', symmetrical=False, verbose_name="关注与被关注")
+    email = models.CharField(max_length=32, verbose_name="个人邮箱", default=" ")
 
     def __str__(self):
         return "{}的信息".format(self.username)

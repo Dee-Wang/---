@@ -1,8 +1,8 @@
 body {
-  background-color: #f6f6f6;
+  background-color: #40a3c2;
 }
 .navbar {
-  background-image: url("/public/static/images/home-header-bg-563ac1688e.png");
+  background-image: url("/static/images/home-header-bg-563ac1688e.png");
   background-color: transparent;
   transition: background-color ease-in-out 0.2s;
   -o-transition: background-color ease-in-out 0.2s;
@@ -54,7 +54,7 @@ body .over-navbar {
   position: relative;
   padding-top: 100px;
   padding-bottom: 10px;
-  background: url("/public/static/images/back3.jpg");
+  background: url("/static/images/back3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

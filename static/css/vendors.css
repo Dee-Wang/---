@@ -22,7 +22,7 @@ ul {
   width: 100%;
   height: 78px;
   opacity: 0.8;
-  background: url("/public/static/images/home-header-bg-563ac1688e.png") repeat-x;
+  background: url("/static/images/home-header-bg-563ac1688e.png") repeat-x;
   z-index: 998;
 }
 .container {
@@ -112,13 +112,16 @@ ul {
   background-color: rgba(0, 0, 0, 0);
 }
 .navbar .nav #login-btn {
-  background-color: #32839d;
+  border: 1px solid white;
 }
 .navbar .nav #login-btn:hover {
-  background-color: #2c738a;
+  color: #40a3c2;
+  background-color: white;
 }
 .navbar .nav #login-btn:active {
-  background-color: #266376;
+  color: #40a3c2;
+  border: 1px solid #f2f2f2;
+  background-color: #f2f2f2;
 }
 .navbar .nav #register-btn {
   border: 1px solid white;
@@ -204,7 +207,7 @@ ul {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('/public/static/images/anonymous.jpg');
+  background-image: url('/static/images/anonymous.jpg');
 }
 .chat-container .chat-left .chat-users .users-list-item:hover {
   background-color: #e6e6e6;
