@@ -21,7 +21,8 @@ class UserProfile(AbstractUser):
     email = models.CharField(max_length=32, verbose_name="个人邮箱", default=" ")
 
     def __str__(self):
-        return "{}的信息".format(self.username)
+        # return "{}的信息".format(self.username)
+        return self.username
 
     # 获取当前用户关注的所有的用户
     def get_all_followings(self):

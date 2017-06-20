@@ -3,14 +3,14 @@ __author__ = 'Dee'
 __date__ = '17-6-19 上午10:25'
 from django.conf.urls import url
 
-from .views import LoginView, RegisterView,ActiveView
+from .views import LoginView, RegisterView, ActiveView, LogoutView, UserInfoView
 
 urlpatterns = [
     # 用户登录页面
     url(r'^login/$', LoginView.as_view(), name='login'),
 
-    # # 用户登出页面
-    # url(r'^logout/$', LogoutView.as_view(), name="logout"),
+    # 用户登出页面
+    url(r'^logout/$', LogoutView.as_view(), name="logout"),
     #
     # 用户注册页面
     url(r'^register/$', RegisterView.as_view(), name="register"),
@@ -27,8 +27,8 @@ urlpatterns = [
     # # 用户跳转到重置密码的页面的之后，在该页面修改密码，提交表单信息
     # url(r'^modify_pwd/', ModifyPasswordView.as_view(), name="modify_pwd"),
     #
-    # # 显示用户个人信息的界面
-    # url(r'^userinfo/$', UserInfoView.as_view(), name="userinfo"),
+    # 显示用户个人信息的界面
+    url(r'^userinfo/$', UserInfoView.as_view(), name="userinfo"),
     #
     # # 用户修改除了头像，密码和邮箱之外的信息
     # url(r'^modify_info/$', ModifyPersonalInfoView.as_view(), name="modify_info"),

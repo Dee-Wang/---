@@ -25,7 +25,7 @@ class IndexView(View):
 class CustomBackend(ModelBackend):
     def authenticate(self, username=None, password=None, **kwargs):
         try:
-            user = UserProfile.objects.get(Q(username=username) | Q(email=username))
+            user = UserProfile.objects.get(Q(username=username) | Q(email= username))
             if user.check_password(password):
                 return user
         except Exception as e:
@@ -36,12 +36,13 @@ class CustomBackend(ModelBackend):
 class LoginView(View):
     def get(self, request):
         return render(request, "user/login.html", {})
+
     def post(self, request):
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
-            user_email = request.POST.get("email", "")
+            user_email = request.POST.get("username", "")
             pass_word = request.POST.get("password", "")
-            user = authenticate(email = user_email, password = pass_word)
+            user = authenticate(username = user_email, password = pass_word)
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -52,6 +53,14 @@ class LoginView(View):
                 return render(request, "user/login.html", {"msg":"用户名或者密码错误"})
         else:
             return render(request, "user/login.html", { "login_form": login_form})
+
+
+# 用户登出
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        # request.user.is_authenticated = False
+        return HttpResponseRedirect(reverse('index'))
 
 
 # 用户注册
@@ -99,3 +108,9 @@ class ActiveView(View):
         else:
             return render(request, "user/active_fail.html")
         return HttpResponseRedirect(reverse('user:login'))
+
+
+# 用户个人信息
+class UserInfoView(View):
+    def get(self,request):
+        return render(request, "user/userinfo.html")

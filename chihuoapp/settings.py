@@ -151,3 +151,10 @@ EMAIL_HOST_USER = 'dee_wang@sina.com'
 EMAIL_HOST_PASSWORD = 'walm0009'
 EMAIL_USE_TSL = False
 DEFAULT_FROM_EMAIL = 'Peter <dee_wang@sina.com>'
+
+# AUTH方法（支持邮箱登录）
+# Application definition
+AUTHENTICATION_BACKENDS = (
+    'user.views.CustomBackend',
+
+)
