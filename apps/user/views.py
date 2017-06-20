@@ -114,3 +114,16 @@ class ActiveView(View):
 class UserInfoView(View):
     def get(self,request):
         return render(request, "user/userinfo.html")
+
+
+# 用户列表
+class UserListView(View):
+    def get(self, request):
+        return render(request, "user/user_list.html")
+
+
+# 用户收藏的话题
+class TopicCollectionView(View):
+    def get(self, request):
+        return render(request, "user/topic_collection.html")
+

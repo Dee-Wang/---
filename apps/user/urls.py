@@ -3,7 +3,8 @@ __author__ = 'Dee'
 __date__ = '17-6-19 上午10:25'
 from django.conf.urls import url
 
-from .views import LoginView, RegisterView, ActiveView, LogoutView, UserInfoView
+from .views import LoginView, RegisterView, ActiveView, LogoutView, UserInfoView, UserListView
+from .views import TopicCollectionView
 
 urlpatterns = [
     # 用户登录页面
@@ -17,6 +18,12 @@ urlpatterns = [
     #
     # 用户激活页面
     url(r'^active_user/(?P<active_code>.*)/$', ActiveView.as_view(), name="active_user"),
+
+    # 用户详情
+    url(r'^userlist/$', UserListView.as_view(), name="userlist"),
+
+    # 用户收藏的专题
+    url(r'^topiccollection/$', TopicCollectionView.as_view(), name='topiccollection'),
     #
     # # 用户忘记密码界面
     # url(r'^forget_pwd/', ForgetPasswordView.as_view(), name="forget_pwd"),
