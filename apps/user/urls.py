@@ -3,8 +3,8 @@ __author__ = 'Dee'
 __date__ = '17-6-19 上午10:25'
 from django.conf.urls import url
 
-from .views import LoginView, RegisterView, ActiveView, LogoutView, UserInfoView, UserListView
-from .views import TopicCollectionView
+from .views import LoginView, RegisterView, ActiveView, LogoutView, UserInfoView, UserListView, UserShareView
+from .views import TopicCollectionView, UserIndexView, UserProfileView, UserSettingView, FoodListView
 
 urlpatterns = [
     # 用户登录页面
@@ -24,6 +24,21 @@ urlpatterns = [
 
     # 用户收藏的专题
     url(r'^topiccollection/$', TopicCollectionView.as_view(), name='topiccollection'),
+
+    # 用户首页
+    url(r'^userindex/$', UserIndexView.as_view(), name='userindex'),
+
+    # UserProfile.html不知道是干嘛的
+    url(r'^userprofile/$', UserProfileView.as_view(), name='userprofile'),
+
+    # 用户设置
+    url(r'^usersetting/$', UserSettingView.as_view(), name='usersetting'),
+
+    # 用户设置
+    url(r'^foodlist/$', FoodListView.as_view(), name='foodlist'),
+
+    # 用户分享
+    url(r'^usershare/$', UserShareView.as_view(), name='usershare'),
     #
     # # 用户忘记密码界面
     # url(r'^forget_pwd/', ForgetPasswordView.as_view(), name="forget_pwd"),
