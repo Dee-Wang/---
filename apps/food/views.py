@@ -33,3 +33,4 @@ class FoodListView(View):
         return render(request, "food/food_list.html", {})
 
 
+

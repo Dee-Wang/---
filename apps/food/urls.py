@@ -4,6 +4,7 @@ __date__ = '17-6-21 下午5:22'
 
 from django.conf.urls import url
 
+
 from .views import FoodCreateView, FoodDetailView, FoodExploreView, FoodListView
 
 urlpatterns = [

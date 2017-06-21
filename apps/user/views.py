@@ -158,4 +158,3 @@ class UserShareView(View):
         return render(request, "user/user_share.html")
 
 
-
