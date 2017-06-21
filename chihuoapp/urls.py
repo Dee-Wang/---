@@ -29,6 +29,15 @@ urlpatterns = [
     # 用户相关的url
     url(r'^user/', include('user.urls', namespace="user")),
 
+    # 帖子
+    url(r'^forum/', include('forum.urls', namespace="forum")),
+
+    # 专题
+    url(r'^topic/', include('topic.urls', namespace="topic")),
+
+    # 食物
+    url(r'^food/', include('food.urls', namespace="food")),
+
     # 验证码部分
     url(r'^captcha/', include('captcha.urls')),
 

@@ -127,3 +127,29 @@ class TopicCollectionView(View):
     def get(self, request):
         return render(request, "user/topic_collection.html")
 
+
+# 用户首页
+class UserIndexView(View):
+    def get(self, request):
+        return render(request, "user/user_index.html")
+
+
+# UserProfileView
+class UserProfileView(View):
+    def get(self, request):
+        return render(request, "user/user_profile.html")
+
+
+# 用户设置
+class UserSettingView(View):
+    def get(self, request):
+        return render(request, "user/user_setting.html")
+
+
+# 食物列表
+class FoodListView(View):
+    def get(self, request):
+        return render(request, "user/food_list.html")
+
+
+
