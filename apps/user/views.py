@@ -116,10 +116,15 @@ class UserInfoView(View):
         return render(request, "user/userinfo.html")
 
 
-# 用户列表
-class UserListView(View):
+# 当前用户在关注谁
+class UserFollowingView(View):
     def get(self, request):
-        return render(request, "user/user_list.html")
+        return render(request, "user/user_following.html")
+
+# 当前用户在关注谁
+class UserFollowerView(View):
+    def get(self, request):
+        return render(request, "user/user_follower.html")
 
 
 # 用户收藏的话题
@@ -134,22 +139,22 @@ class UserIndexView(View):
         return render(request, "user/user_index.html")
 
 
-# UserProfileView
-class UserProfileView(View):
-    def get(self, request):
-        return render(request, "user/user_profile.html")
-
-
-# 用户设置
+# 用户设置，包括用户个人信息设置和用户背景图设置
 class UserSettingView(View):
     def get(self, request):
         return render(request, "user/user_setting.html")
 
 
-# 食物列表
-class FoodListView(View):
+# 用户吃过的食物的列表
+class UserHaveEatedView(View):
     def get(self, request):
-        return render(request, "user/food_list.html")
+        return render(request, "user/user_haveeated.html")
+
+
+# 用户想吃的食物的列表
+class UserWantEatView(View):
+    def get(self, request):
+        return render(request, "user/user_wanteat.html")
 
 
 # 用户分享

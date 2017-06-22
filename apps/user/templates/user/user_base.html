@@ -8,6 +8,7 @@
         </title>
         <link rel="stylesheet" href="{% static 'font/font-awesome-4.5.0/css/font-awesome.min.css' %}" media="screen" title="no title" charset="utf-8">
         <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
+        <link href="{% static 'css/user_base.css' %}" rel="stylesheet">
         {% block custom_css %}{% endblock %}
         <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
         {% block custom_js %}{% endblock %}
@@ -17,7 +18,7 @@
 
             <div class="nav">
                 <ul>
-                    <a href="#">
+                    <a href="{% url 'index' %}">
                         <li>首页<span class="cursor"></span></li>
                     </a>
                     <a href="#">
@@ -30,8 +31,8 @@
                         <li>好吃<span class="cursor"></span></li>
                     </a>
                 </ul>
-                <a href="#"><button type="button" name="login" id="login-btn">登录</button></a>
-                <a href="#"><button type="button" name="register" id="register-btn">注册</button></a>
+                <a href="{% url 'user:login' %}"><button type="button" name="login" id="login-btn">登录</button></a>
+                <a href="{% url 'user:register' %}"><button type="button" name="register" id="register-btn">注册</button></a>
                 <input type="text" name="search" value="寻找好物……" id="search">
             </div>
         </div>
@@ -47,11 +48,19 @@
                     <h4 class="user-area">广东省，珠海市，香洲区，北京理工大学珠海学院</h4>
                     <h4 class="user-desc">简介：高冷又闷骚☞程序猿、码农、艺术家、JavaScript爱好者、前端小渣渣</h4>
                 </div>
+                <div class="user-follower">
+                    <div class="follow-num">256</div>
+                    粉丝
+                </div>
+                <div class="user-following">
+                    <div class="follow-num">161</div>
+                    关注
+                </div>
 
             </div>
 
             <div class="user-tabs clearfix">
-                <a href="#">
+                <a href="{% url 'user:userindex' %}">
                     <div class="tab-item current-tab">主页</div>
                 </a>
                 <a href="#">
@@ -79,6 +88,7 @@
 
             {% block content %}{% endblock %}
         </div>
+    {% block otherpart %}{% endblock %}
 
     </body>
 </html>
