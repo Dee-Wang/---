@@ -22,7 +22,7 @@ class Board(models.Model):
 
 # 帖子信息
 class ForumPost(models.Model):
-    forum_title = models.CharField(max_length=64, verbose_name='帖子标题', default=" ")
+    forum_title = models.CharField(max_length=64, verbose_name='帖子标题', default="")
     forum_content = models.TextField(max_length=5096, verbose_name='帖子内容')
     forum_creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='创建者')
     board = models.ForeignKey(Board, blank=True, null=True, verbose_name='所属板块')

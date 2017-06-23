@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'chihuoapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chihuobbs',
+        'NAME': 'chihuobbs4',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',

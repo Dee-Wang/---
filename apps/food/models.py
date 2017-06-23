@@ -21,7 +21,7 @@ class FoodCategory(models.Model):
 # 食物信息
 class Food(models.Model):
     title = models.CharField(max_length=128, verbose_name='标题')
-    food_name = models.CharField(max_length=128, verbose_name="食品名称", default=" ")
+    food_name = models.CharField(max_length=128, verbose_name="食品名称", default="")
     description = models.TextField(verbose_name='描述')
     cover_image = models.ImageField(max_length=128, upload_to='food/cover/%Y/%m/%d', verbose_name='封面图片',default="image/dangao.jpg")
     rating = RatingField(can_change_vote=True)
