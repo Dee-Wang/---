@@ -1,15 +1,28 @@
+from django.core.urlresolvers import reverse
 from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django.contrib.auth.admin import UserAdmin
+from django.utils.html import format_html
 
-from .models import UserProfile, EmailVerifyRecord, UserSetting
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email','nickname', 'birthday', 'gender', 'location', 'phone_num', 'avatar')
-    search_fields = ('username', 'email','nickname', 'location', 'phone_num')
-    list_filter = ('username', 'email','nickname', 'location', 'phone_num', 'gender')
+from .models import UserProfile, UserSetting, EmailVerifyRecord
 
 
-class UserSettingAdmin(admin.ModelAdmin):
-    list_display = ('user', 'background_image')
+class UserSettingAdmin(admin.TabularInline):
+    model = UserSetting
+
+
+class UserProfileAdmin(UserAdmin):
+    fieldsets = (
+        ('个人信息', {'fields': ('username', 'email', 'password', 'nickname', 'location', 'introduction', 'gender', 'birthday', 'phone_num', 'avatar', 'following')}),
+        ('权限', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('登录信息', {'fields': ('date_joined', 'last_login',)}),
+    )
+    list_display = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
+    ordering = ('date_joined',)
+
+    inlines = [
+        UserSettingAdmin
+    ]
 
 
 class EmailVerifyRecordAdmin(admin.ModelAdmin):
@@ -19,5 +32,4 @@ class EmailVerifyRecordAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserProfile, UserProfileAdmin)
-admin.site.register(UserSetting, UserSettingAdmin)
 admin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
