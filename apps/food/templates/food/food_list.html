@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="{% static 'font/font-awesome-4.5.0/css/font-awesome.min.css' %}" media="screen" title="no title" charset="utf-8">
         <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
         <link href="{% static 'css/food_list.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/food_list.js' %}"></script>
     </head>
@@ -56,8 +57,11 @@
                 
                 <div class="item">
                     <a href="#">
-{#                        <div class="item-img" style="background-image: {{ food.cover_image }}"></div>#}
-                        <div class="item-img" src = "{{ food.cover_image }}"></div>
+{#                        <div class="item-img">#}
+                        <div class="item-img" style="" src = "{{ food.cover_image }}"></div>
+{#                        <div class="item-img" src = "{{ MEDIA_URL }}{{ food.cover_image }}"></div>#}
+{#                        <img class="item-img" src="{{ MEDIA_URL }}{{ food.cover_image }}"/>#}
+{#                        </div>#}
                     </a>
                     <div class="item-main">
                         <h3 class="item-title">{{ food.food_name }}</h3>
@@ -73,9 +77,37 @@
                 </div>
 
                 {% endfor %}
-
-
             </div>
         </div>
+                <!--分页器-->
+                <div class="pageturn">
+                        <ul class="pagelist">
+                            {% if food_page.has_previous %}
+                                <li class="long">
+                                     <a href="?{{ food_page.previous_page_number.querystring }}" class="prev">上一页</a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in food_page.pages %}
+                                {% if page %}
+                                    {% ifequal page food_page.number %}
+                                        <li class="active"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                    {% else %}
+                                        <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                    {% endifequal %}
+                                {% else %}
+                                    <li class="none"><a href="">...</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if food_page.has_next %}
+                                <li class="long"><a href="?{{ food_page.next_page_number.querystring }}">下一页</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+
+{#            </div>#}
+{#        </div>#}
     </body>
 </html>
