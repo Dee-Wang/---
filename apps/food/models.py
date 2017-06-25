@@ -33,10 +33,19 @@ class Food(models.Model):
     category = models.ForeignKey(FoodCategory, verbose_name='分类')
     user = models.ForeignKey(UserProfile, related_name='foods_shared', verbose_name='创建用户')
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
-    tags = models.CharField(max_length=64, default='', verbose_name='食物标签')
+    tags = models.CharField(max_length=64, default='', verbose_name='食物标签', help_text="请使用','将多个标签分隔开")
 
     def __str__(self):
         return self.food_name
+
+    # 获取这个食物的所有的标签
+    def get_tags_list(self):
+        if self.tags:
+            tags_list = self.tags.split(",")
+        else:
+            tags_list = []
+        return tags_list
+
 
     class Meta:
         verbose_name = "食物信息"

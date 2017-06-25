@@ -12,7 +12,7 @@ class FoodCategoryAdmin(admin.ModelAdmin):
 
 # 食物详情后台管理
 class FoodAdmin(admin.ModelAdmin):
-    list_display = ('title','food_name','description','cover_image','rating','users_wta', 'users_ate','link','category', 'user','add_time','tags')
+    list_display = ('title','food_name','description','cover_image','rating','link','category', 'user','add_time','tags')
     search_fields = ['title','food_name','category', 'user','tags']
     list_filter = ('title','food_name','category', 'user','tags')
 

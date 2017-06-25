@@ -8,11 +8,28 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-# 食物发布
-class FoodCreateView(View):
+from .models import Food, FoodCategory
+
+
+# 食物列表
+class FoodListView(View):
     def get(self, request):
-        return render(request, "food/food_create.html", {})
+        all_food = Food.objects.all()
+
+        # 对课程进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_food, 3, request=request)
+        food_page = p.page(page)
+        return render(request, "food/food_list.html", {
+            'all_food':all_food,
+            'food_page':food_page,
+        })
 
 
 # 食物详情
@@ -21,16 +38,18 @@ class FoodDetailView(View):
         return render(request, "food/food_detail.html", {})
 
 
+# 食物发布
+class FoodCreateView(View):
+    def get(self, request):
+        return render(request, "food/food_create.html", {})
+
+
 # 发现食物
 class FoodExploreView(View):
     def get(self, request):
         return render(request, "food/food_explore.html", {})
 
 
-# 食物列表
-class FoodListView(View):
-    def get(self, request):
-        return render(request, "food/food_list.html", {})
 
 
 

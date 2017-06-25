@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'topic',
     'usercomments',
     'captcha',
+    'pure_pagination',
 ]
 
 # UserProfile 覆盖了 django 内置的 user 表
@@ -158,3 +159,15 @@ AUTHENTICATION_BACKENDS = (
     'user.views.CustomBackend',
 
 )
+
+# 设置分页的信息
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
+
+# 配置media文件路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

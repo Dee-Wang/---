@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from user.models import UserProfile
@@ -14,6 +16,7 @@ class FoodTopic(models.Model):
     total_collects = models.PositiveIntegerField(db_index=True, default=0, verbose_name='收藏数')
     foods = models.ManyToManyField(Food, related_name='topics_belong', verbose_name='美食')
     tags = models.CharField(max_length=64, default='', verbose_name='专题标签')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return self.title
