@@ -34,8 +34,13 @@ class FoodListView(View):
 
 # 食物详情
 class FoodDetailView(View):
-    def get(self, request):
-        return render(request, "food/food_detail.html", {})
+    def get(self, request, food_id):
+        all_food = Food.objects.all()
+        cur_food = Food.objects.get(id=int(food_id))
+        return render(request, "food/food_detail.html", {
+            'all_food':all_food,
+            'cur_food':cur_food,
+        })
 
 
 # 食物发布

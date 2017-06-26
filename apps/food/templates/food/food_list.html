@@ -56,7 +56,7 @@
                 {% for food in food_page.object_list %}
                 
                 <div class="item">
-                    <a href="#">
+                    <a href="{% url 'food:fooddetail' food.id %}">
 {#                        <div class="item-img">#}
                         <div class="item-img" style="" src = "{{ food.cover_image }}"></div>
 {#                        <div class="item-img" src = "{{ MEDIA_URL }}{{ food.cover_image }}"></div>#}
@@ -64,7 +64,9 @@
 {#                        </div>#}
                     </a>
                     <div class="item-main">
+                    <a href="{% url 'food:fooddetail' food.id %}">
                         <h3 class="item-title">{{ food.food_name }}</h3>
+                    </a>
                         <div class="item-tags">
                             <i class="fa fa-tags"></i>
                         {% if food.get_tags_list %}

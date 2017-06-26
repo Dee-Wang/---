@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^foodcreate/$', FoodCreateView.as_view(), name='foodcreate'),
 
     # 食物详情
-    url(r'^fooddetail/$', FoodDetailView.as_view(), name='fooddetail'),
+    url(r'^fooddetail//(?P<food_id>\d+)/$', FoodDetailView.as_view(), name='fooddetail'),
 
     # 发现食物
     url(r'^foodexplore/$', FoodExploreView.as_view(), name='foodexplore'),

@@ -29,7 +29,7 @@ class Food(models.Model):
     users_wta = models.ManyToManyField(UserProfile, related_name='foods_wta', blank=True, verbose_name='想吃的用户')
     # 和上面的类似，只不过表示的是吃过的
     users_ate = models.ManyToManyField(UserProfile, related_name='foods_ate', blank=True, verbose_name='吃过的用户')
-    link = models.URLField(verbose_name='相关链接', max_length=200, null=True, blank=True)
+    link = models.URLField(verbose_name='来源链接', max_length=200, null=True, blank=True)
     category = models.ForeignKey(FoodCategory, verbose_name='分类')
     user = models.ForeignKey(UserProfile, related_name='foods_shared', verbose_name='创建用户')
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
