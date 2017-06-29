@@ -12,9 +12,7 @@ class FoodTopic(models.Model):
     title = models.CharField(max_length=32, verbose_name='专题名称')
     cover_image = models.ImageField(upload_to='topic/cover/%Y/%m/%d', verbose_name='封面图片', default="image/foodtopic.jpg")
     description = models.TextField(verbose_name='专题描述')
-    users_collect = models.ManyToManyField(UserProfile, related_name='topics_collected', blank=True, verbose_name='收藏的用户')
     total_collects = models.PositiveIntegerField(db_index=True, default=0, verbose_name='收藏数')
-    foods = models.ManyToManyField(Food, related_name='topics_belong', verbose_name='美食')
     tags = models.CharField(max_length=64, default='', verbose_name='专题标签')
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 

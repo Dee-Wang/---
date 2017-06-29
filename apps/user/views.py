@@ -10,7 +10,7 @@ from django.shortcuts import render_to_response
 
 # from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import UserProfile, UserSetting, EmailVerifyRecord
+from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm,RegisterForm
 from utils.email_send import send_email
 
