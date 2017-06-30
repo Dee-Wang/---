@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from food.models import Food
@@ -10,6 +12,7 @@ from topic.models import FoodTopic
 class UserWantEat(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
     food = models.ForeignKey(Food, verbose_name="想吃的食物")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return "{0}想吃{1}".format(self.user.username, self.food.title)
@@ -23,6 +26,7 @@ class UserWantEat(models.Model):
 class UserHaveAte(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
     food = models.ForeignKey(Food, verbose_name="吃过的食物")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return "{0}吃过{1}".format(self.user.username, self.food.title)
@@ -36,6 +40,7 @@ class UserHaveAte(models.Model):
 class UserRecommendForum(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
     forum = models.ForeignKey(ForumPost, verbose_name="推荐的帖子")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return "{0}推荐{1}".format(self.user.username, self.forum.forum_title)
@@ -49,6 +54,7 @@ class UserRecommendForum(models.Model):
 class UserCollectTopic(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")
     topic = models.ForeignKey(FoodTopic, verbose_name="收藏的专题")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return "{0}收藏{1}".format(self.user.username, self.topic.title)
@@ -62,6 +68,7 @@ class UserCollectTopic(models.Model):
 class FoodInTopic(models.Model):
     food = models.ForeignKey(Food, verbose_name="美食")
     topic = models.ForeignKey(FoodTopic, verbose_name="所属专题")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
         return "{0}在专题{1}中".format(self.food.title, self.topic.title)

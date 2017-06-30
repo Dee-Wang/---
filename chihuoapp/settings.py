@@ -30,6 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 将设置文件中的TEMPLATE_DEBUG设置位True
+THUMBNAIL_DEBUG = True
+
 
 # Application definition
 
@@ -50,6 +53,8 @@ INSTALLED_APPS = [
     'usercomments',
     'captcha',
     'pure_pagination',
+    'operation',
+    'sorl.thumbnail',
 ]
 
 # UserProfile 覆盖了 django 内置的 user 表

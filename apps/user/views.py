@@ -13,12 +13,17 @@ from django.shortcuts import render_to_response
 from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm,RegisterForm
 from utils.email_send import send_email
+from topic.models import FoodTopic
 
 
 # 网站首页
 class IndexView(View):
     def get(self, request):
-        return render(request, "index.html")
+        all_topics = FoodTopic.objects.all()
+
+        return render(request, "index.html", {
+            'all_topics':all_topics,
+        })
 
 
 # 用户登录的时候账户名可以是用户名，可以是用户的邮箱

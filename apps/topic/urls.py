@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^topiclist/$', TopicListView.as_view(), name='topiclist'),
 
     # 话题详情
-    url(r'^topicdetail/$', TopicDetailView.as_view(), name='topicdetail'),
+    url(r'^topicdetail/(?P<topic_id>\d+)/$', TopicDetailView.as_view(), name='topicdetail'),
 ]

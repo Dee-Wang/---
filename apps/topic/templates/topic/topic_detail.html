@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load thumbnail %}
 <html>
     <head>
         <meta charset="utf-8">
@@ -35,136 +36,19 @@
 
         <div class="details-container">
             <div class="topic-content">
-                <div class="topic-img" style="background-image: url('{% static 'images/details.jpg' %}')"></div>
+                {% thumbnail food.cover_image "1048x350" crop="center" as im %}
+                <div class="topic-img" style="background-image: url('{{ im.url }}')"></div>
+                {% endthumbnail %}
                 <div class="topic-info">
-                    <h1 class="topic-title">夏日里，用清新的杯子喝冰水</h1>
+                    <h1 class="topic-title">{{ topic.title }}</h1>
                     <button type="button" name="button" id="collect" data-id="" data-action="">收藏专题</button>
                     <div class="topic-desc">
-                        多喝热水这句话拜托别再说啦，夏日彻底到来，当然要好好喝冰水，喝冷饮啦。换掉用了一冬天的保温杯，选一款超级清新可爱的水杯，在夏日里大口喝水。小糖君帮大家选择了很多超高性价比的清新款式水杯，一起看看吧。
+                        {{ topic.description }}
                     </div>
                 </div>
             </div>
 
-            <div class="detail-item">
-                <a href="#">
-                    <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
-                </a>
-                <div class="detail-content">
-                    <h2 class="detail-title"><a href="#">酒狐 长汀豆腐干6小袋装</a></h2>
-
-                    <div class="detail-desc-wrapper">
-                        <p class="detail-desc">
-                            豆腐干和酒简直是绝配。来自客家人的酸甜豆腐干，采用传统卤香制品配方，香甜可口而又富含卤汁，口感甜辣，嚼劲很足。吃一块喝一口，慢饮细嚼的度过美好夏夜
-                        </p>
-                    </div>
-
-                    <div class="detail-bottom">
-                        <div class="detail-tags">
-                            <span class="tags-tip">标签：</span>
-                            <i class="tag">零食</i>
-                            <i class="tag">高档</i>
-                            <i class="tag">小清新</i>
-                            <i class="tag">高热量</i>
-
-                            <div class="like">
-                                <span class="like-count">23</span>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <a href="#">
-                    <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
-                </a>
-                <div class="detail-content">
-                    <h2 class="detail-title"><a href="#">酒狐 长汀豆腐干6小袋装</a></h2>
-
-                    <div class="detail-desc-wrapper">
-                        <p class="detail-desc">
-                            豆腐干和酒简直是绝配。来自客家人的酸甜豆腐干，采用传统卤香制品配方，香甜可口而又富含卤汁，口感甜辣，嚼劲很足。吃一块喝一口，慢饮细嚼的度过美好夏夜
-                        </p>
-                    </div>
-
-                    <div class="detail-bottom">
-                        <div class="detail-tags">
-                            <span class="tags-tip">标签：</span>
-                            <i class="tag">零食</i>
-                            <i class="tag">高档</i>
-                            <i class="tag">小清新</i>
-                            <i class="tag">高热量</i>
-
-                            <div class="like">
-                                <span class="like-count">23</span>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <a href="#">
-                    <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
-                </a>
-                <div class="detail-content">
-                    <h2 class="detail-title"><a href="#">酒狐 长汀豆腐干6小袋装</a></h2>
-
-                    <div class="detail-desc-wrapper">
-                        <p class="detail-desc">
-                            豆腐干和酒简直是绝配。来自客家人的酸甜豆腐干，采用传统卤香制品配方，香甜可口而又富含卤汁，口感甜辣，嚼劲很足。吃一块喝一口，慢饮细嚼的度过美好夏夜
-                        </p>
-                    </div>
-
-                    <div class="detail-bottom">
-                        <div class="detail-tags">
-                            <span class="tags-tip">标签：</span>
-                            <i class="tag">零食</i>
-                            <i class="tag">高档</i>
-                            <i class="tag">小清新</i>
-                            <i class="tag">高热量</i>
-
-                            <div class="like">
-                                <span class="like-count">23</span>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <a href="#">
-                    <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
-                </a>
-                <div class="detail-content">
-                    <h2 class="detail-title"><a href="#">酒狐 长汀豆腐干6小袋装</a></h2>
-
-                    <div class="detail-desc-wrapper">
-                        <p class="detail-desc">
-                            豆腐干和酒简直是绝配。来自客家人的酸甜豆腐干，采用传统卤香制品配方，香甜可口而又富含卤汁，口感甜辣，嚼劲很足。吃一块喝一口，慢饮细嚼的度过美好夏夜
-                        </p>
-                    </div>
-
-                    <div class="detail-bottom">
-                        <div class="detail-tags">
-                            <span class="tags-tip">标签：</span>
-                            <i class="tag">零食</i>
-                            <i class="tag">高档</i>
-                            <i class="tag">小清新</i>
-                            <i class="tag">高热量</i>
-
-                            <div class="like">
-                                <span class="like-count">23</span>
-                                <i class="fa fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            {% for food in cur %}
             <div class="detail-item">
                 <a href="#">
                     <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
