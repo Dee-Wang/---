@@ -57,11 +57,10 @@
                 
                 <div class="item">
                     <a href="{% url 'food:fooddetail' food.id %}">
-{#                        <div class="item-img">#}
-                        <div class="item-img" style="" src = "{{ food.cover_image }}"></div>
-{#                        <div class="item-img" src = "{{ MEDIA_URL }}{{ food.cover_image }}"></div>#}
-{#                        <img class="item-img" src="{{ MEDIA_URL }}{{ food.cover_image }}"/>#}
-{#                        </div>#}
+                        <div class="item-img" style="">
+                            <img width="300" height="200"  src = "{{ MEDIA_URL }}{{ food.cover_image }}"/>
+                        </div>
+
                     </a>
                     <div class="item-main">
                     <a href="{% url 'food:fooddetail' food.id %}">

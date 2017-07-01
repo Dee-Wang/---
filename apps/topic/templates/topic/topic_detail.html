@@ -36,9 +36,10 @@
 
         <div class="details-container">
             <div class="topic-content">
-                {% thumbnail food.cover_image "1048x350" crop="center" as im %}
-                <div class="topic-img" style="background-image: url('{{ im.url }}')"></div>
-                {% endthumbnail %}
+{#                {% thumbnail food.cover_image "1048x350" crop="center" as im %}#}
+{#                <div class="topic-img" style="background-image: url('{{ im.url }}')"></div>#}
+{#                {% endthumbnail %}#}
+                <img width="1048" height="350" src="{{ MEDIA_URL }}{{ topic.cover_image }}">
                 <div class="topic-info">
                     <h1 class="topic-title">{{ topic.title }}</h1>
                     <button type="button" name="button" id="collect" data-id="" data-action="">收藏专题</button>

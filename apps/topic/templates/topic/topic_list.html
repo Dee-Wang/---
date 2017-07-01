@@ -43,9 +43,12 @@
                 <div class="topic-item">
 
                     <a href="{% url 'topic:topicdetail' topic.id %}">
-                        {% thumbnail topic.cover_image "393x188" crop="center" as im %}
-                             <div class="topic-item-img" style="background-image: url('{{ im.url }}')"></div>
-                        {% endthumbnail %}
+{#                        {% thumbnail topic.cover_image "393x188" crop="center" as im %}#}
+{#                             <div class="topic-item-img" style="background-image: url('{{ im.url }}')"></div>#}
+{#                        {% endthumbnail %}#}
+                        <div class="topic-item-img" style="">
+                            <img width="393" height="188"  src="{{ MEDIA_URL }}{{ topic.cover_image }}">
+                        </div>
                     </a>
                     <div class="topic-item-desc">
                         <a href="{% url 'topic:topicdetail' topic.id %}"><h3 class="desc-title">{{ topic.title }}</h3></a>
