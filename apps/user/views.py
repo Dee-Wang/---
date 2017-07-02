@@ -115,12 +115,6 @@ class ActiveView(View):
         return HttpResponseRedirect(reverse('user:login'))
 
 
-# 用户个人信息
-class UserInfoView(View):
-    def get(self,request):
-        return render(request, "user/userinfo.html")
-
-
 # 当前用户在关注谁
 class UserFollowingView(View):
     def get(self, request):

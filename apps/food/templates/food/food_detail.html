@@ -1,40 +1,17 @@
-<!DOCTYPE html>
+{% extends 'food/base.html' %}
 {% load staticfiles %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>商品详情</title>
-        <link rel="stylesheet" href="{% static 'font/font-awesome-4.5.0/css/font-awesome.min.css' %}" media="screen" title="no title" charset="utf-8">
-        <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
-        <link href="{% static 'css/food_detail.css' %}" rel="stylesheet">
-        <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/food_detail.js' %}"></script>
-    </head>
-    <body>
-        <div class="navbar">
-
-            <div class="nav">
-                <ul>
-                    <a href="#">
-                        <li>首页<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>专题<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>发现<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>好吃<span class="cursor"></span></li>
-                    </a>
-                </ul>
-                <a href="#"><button type="button" name="login" id="login-btn">登录</button></a>
-                <a href="#"><button type="button" name="register" id="register-btn">注册</button></a>
-                <input type="text" name="search" value="寻找好物……" id="search">
-            </div>
-        </div>
-        
-        <div class="detail-container">
+{% load thumbnail %}
+{% block custom_title %}
+    美食详情
+{% endblock %}
+{% block custom_css %}
+    <link href="{% static 'css/food_detail.css' %}" rel="stylesheet">
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'js/food_detail.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="detail-container">
             <div class="main-container clearfix">
                 <div class="food-left fl">
                     <div class="food-left-container">
@@ -42,29 +19,29 @@
                             <img src="{{ MEDIA_URL }}{{ cur_food.cover_image }}" alt="商品图片" width="100%" height="100%">
                             <div class="food-img-shadow">
                                 <div class="shadow-icons">
-                                    
+
                                     <div class="icon" id="want" data-id="123" data-action="321">
-                                        
+
                                             <i class="fa fa-cutlery">
                                                 <span class="fa-margin">想吃</span>
                                             </i>
-                                        
+
                                     </div>
 
                                     <div class="icon" id="eated" data-id="222" data-action="333">
-                                        
+
                                             <i class="fa fa-hand-peace-o">
                                                 <span class="fa-margin">吃过</span>
                                             </i>
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="food-like-share">
-                            
-                            
+
+
                             <div class="circle" id="like" data-id="" data-action="">
                                 <i class="fa fa-thumbs-o-up"></i>
                             </div>
@@ -84,7 +61,7 @@
                         </div>
                         <h2 class="comments-title">全部评论</h2>
                         <div class="comments-main">
-                            
+
                             <div class="comments-item clearfix">
                                 <div class="comments-user-img" style="background-image: url('{% static 'images/food2.jpg' %}')"></div>
                                 <div class="comments-user-name">
@@ -158,7 +135,9 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
+{% endblock %}
+{% block custom_script %}
+    <script type="text/javascript">
 
             (function() {
 
@@ -250,5 +229,5 @@
                 });
             })();
         </script>
-    </body>
-</html>
+{% endblock %}
+

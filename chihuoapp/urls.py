@@ -17,8 +17,12 @@ from django.conf import settings
 from django.conf.urls import url, include, handler404, handler500
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.static import serve
 
 from user.views import IndexView
+
+from chihuoapp.settings import MEDIA_ROOT
+
 
 urlpatterns = [
 
@@ -43,4 +47,8 @@ urlpatterns = [
     # 验证码部分
     url(r'^captcha/', include('captcha.urls')),
 
-    ] + static('static/', document_root=settings.STATIC_ROOT) + static('media/', document_root=settings.MEDIA_ROOT)
+    # 处理静态文件的函数配置
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+]
+
+    # ] + static('static/', document_root=settings.STATIC_ROOT) + static('media/', document_root=settings.MEDIA_ROOT)

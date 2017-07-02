@@ -26,6 +26,7 @@ class Food(models.Model):
     category = models.ForeignKey(FoodCategory, verbose_name='分类')
     user = models.ForeignKey(UserProfile, related_name='foods_shared', verbose_name='创建用户')
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+    total_likenum = models.PositiveIntegerField(default=0, verbose_name="收藏总数")
     tags = models.CharField(max_length=64, default='', verbose_name='食物标签', help_text="请使用','将多个标签分隔开")
 
     def __str__(self):

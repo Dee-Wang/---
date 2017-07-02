@@ -52,6 +52,7 @@ class FoodCreateView(View):
 # 发现食物
 class FoodExploreView(View):
     def get(self, request):
+        # 获取人气最高的9个
         return render(request, "food/food_explore.html", {})
 
 

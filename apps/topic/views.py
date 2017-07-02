@@ -41,11 +41,12 @@ class TopicDetailView(View):
         # cur_topic_food = cur_topic.foodintopic_set.all()
         cur_topic_food = FoodInTopic.objects.filter(topic=cur_topic)
         food_ids = [topic_food.food.id for topic_food in cur_topic_food]
-        all_topic_food = FoodInTopic.objects.filter(food_id__in=food_ids)
+        all_topic_food = Food.objects.filter(id__in=food_ids)
 
 
 
         return render(request, "topic/topic_detail.html", {
             'topic':cur_topic,
             'cur_topic_food': cur_topic_food,
+            'all_topic_food':all_topic_food,
         })

@@ -1,45 +1,19 @@
-<!DOCTYPE html>
+{% extends 'food/base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>专题内容</title>
-        <link rel="stylesheet" href="{% static 'font/font-awesome-4.5.0/css/font-awesome.min.css' %}" media="screen" title="no title" charset="utf-8">
-        <link href="{% static 'css/vendors.css' %}" rel="stylesheet">
-        <link href="{% static 'css/topic_detail.css' %}" rel="stylesheet">
-        <script type="text/javascript" src="{% static 'js/vendors.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/topic_detail.js' %}"></script></head>
-    <body>
-        <div class="navbar">
-
-            <div class="nav">
-                <ul>
-                    <a href="#">
-                        <li>首页<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>专题<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>发现<span class="cursor"></span></li>
-                    </a>
-                    <a href="#">
-                        <li>好吃<span class="cursor"></span></li>
-                    </a>
-                </ul>
-                <a href="#"><button type="button" name="login" id="login-btn">登录</button></a>
-                <a href="#"><button type="button" name="register" id="register-btn">注册</button></a>
-                <input type="text" name="search" value="寻找好物……" id="search">
-            </div>
-        </div>
-
-        <div class="details-container">
+{% block custom_title %}
+    专题详情
+{% endblock %}
+{% block custom_css %}
+    <link href="{% static 'css/topic_detail.css' %}" rel="stylesheet">
+{% endblock %}
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'js/topic_detail.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="details-container">
             <div class="topic-content">
-{#                {% thumbnail food.cover_image "1048x350" crop="center" as im %}#}
-{#                <div class="topic-img" style="background-image: url('{{ im.url }}')"></div>#}
-{#                {% endthumbnail %}#}
-                <img width="1048" height="350" src="{{ MEDIA_URL }}{{ topic.cover_image }}">
+                <img width="1048" height="350" src="{{ MEDIA_URL }}{{ topic.cover_image }}"/>
                 <div class="topic-info">
                     <h1 class="topic-title">{{ topic.title }}</h1>
                     <button type="button" name="button" id="collect" data-id="" data-action="">收藏专题</button>
@@ -48,39 +22,44 @@
                     </div>
                 </div>
             </div>
-
-            {% for food in cur %}
+            {% for food in all_topic_food %}
             <div class="detail-item">
-                <a href="#">
-                    <div class="detail-img-left" style="background-image: url('{% static 'images/detail1.jpg' %}')"></div>
+                <a href="{% url 'food:fooddetail' food.id %}">
+                    <div class="detail-img-left" style="">
+                        <img width="250" height="150" src="{{ MEDIA_URL }}{{ food.cover_image }}"/>
+                    </div>
                 </a>
                 <div class="detail-content">
-                    <h2 class="detail-title"><a href="#">酒狐 长汀豆腐干6小袋装</a></h2>
+                    <h2 class="detail-title">
+                        <a href="{% url 'food:fooddetail' food.id %}">{{ food.title }}</a>
+                    </h2>
 
                     <div class="detail-desc-wrapper">
                         <p class="detail-desc">
-                            豆腐干和酒简直是绝配。来自客家人的酸甜豆腐干，采用传统卤香制品配方，香甜可口而又富含卤汁，口感甜辣，嚼劲很足。吃一块喝一口，慢饮细嚼的度过美好夏夜
+                            {{ food.description }}
                         </p>
                     </div>
 
                     <div class="detail-bottom">
                         <div class="detail-tags">
                             <span class="tags-tip">标签：</span>
-                            <i class="tag">零食</i>
-                            <i class="tag">高档</i>
-                            <i class="tag">小清新</i>
-                            <i class="tag">高热量</i>
+                            {% for tag in food.get_tags_list %}
+                                <i class="tag">{{ tag }}</i>
+                            {% endfor %}
 
                             <div class="like">
-                                <span class="like-count">23</span>
+                                <span class="like-count">{{ food.total_likenum }}</span>
                                 <i class="fa fa-heart"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <script type="text/javascript">
+{% endblock %}
+{% block custom_script %}
+    <script type="text/javascript">
 
             (function() {
                 var collectDom = $("collect");
@@ -105,5 +84,4 @@
                 });
             })();
         </script>
-    </body>
-</html>
+{% endblock %}
