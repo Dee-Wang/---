@@ -16,6 +16,8 @@ class UserProfile(AbstractUser):
     phone_num = models.CharField(max_length=11, verbose_name="手机号码", null=True, blank=True)
     image = models.ImageField(max_length=128, upload_to='users/avatar/%Y/%m/%d', verbose_name='头像',default="image/superman.jpg")
     email = models.CharField(max_length=32, verbose_name="个人邮箱", default="")
+    total_wantnum = models.PositiveIntegerField(default=0, verbose_name="用户想吃的美食的总数")
+    total_likenum = models.PositiveIntegerField(default=0, verbose_name="用户吃过的美食的总数")
     following = models.ManyToManyField('self', blank=True, related_name='followers', symmetrical=False, verbose_name="关注与被关注")
 
     def __str__(self):

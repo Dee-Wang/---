@@ -36,6 +36,34 @@ class UserHaveAte(models.Model):
         verbose_name_plural = verbose_name
 
 
+# 用户喜欢的食物
+class UserLikeFood(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name="用户")
+    food = models.ForeignKey(Food, verbose_name="喜欢的食物")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+
+    def __str__(self):
+        return "{0}喜欢{1}".format(self.user.username, self.food.title)
+
+    class Meta:
+            verbose_name = "用户喜欢的食物"
+            verbose_name_plural = verbose_name
+
+
+# 用户不喜欢的食物
+class UserDislikeFood(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name="用户")
+    food = models.ForeignKey(Food, verbose_name="不喜欢的食物")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+
+    def __str__(self):
+        return "{0}不喜欢{1}".format(self.user.username, self.food.title)
+
+    class Meta:
+        verbose_name = "用户不喜欢的食物"
+        verbose_name_plural = verbose_name
+
+
 # 用户推荐的帖子
 class UserRecommendForum(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name="用户")

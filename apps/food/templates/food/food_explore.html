@@ -15,24 +15,54 @@
     <div class="explore-container">
             <div class="explore-tab-container">
                 <ul class="tab-ul clearfix">
-                    <li class="tab-ul-item current-item">最新</li>
-                    <li class="tab-ul-item">热门</li>
+                    <li class="{% ifequal sort '' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}"><a href="?sort=">全部</a></li>
+                    <li class="{% ifequal sort 'new' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}"><a href="?sort=new">最新</a></li>
+                    <li class="{% ifequal sort 'hot' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}"><a href="?sort=hot">热门</a></li>
+{#                    <li class="tab-ul-item current-item">最新</li>#}
+{#                    <li class="tab-ul-item">热门</li>#}
                 </ul>
             </div>
+{#            <div class="explore-main-container">#}
+{#                {% for food in display_food %}#}
+{#                    <div class="item">#}
+{#                        <a href="{% url 'food:fooddetail' food.id %}">#}
+{#                            <div class="item-img" style="background-image: url('{{ MEDIA_URL }}{{ food.cover_image }}')">#}
+{#                                <div class="item-main">#}
+{#                                    <h4 class="item-title">{{ food.title }}</h4>#}
+{#                                <div class="item-bottom">#}
+{#                                    <div class="item-create-user">#}
+{#                                        分享自 {{ food.user }}#}
+{#                                    </div>#}
+{#                                    <div class="icons">#}
+{#                                        <i class="fa fa-smile-o"><span class="like-num">{{ food.total_likenum }}</span></i>#}
+{#                                        <i class="fa fa-frown-o"><span class="dislike-num">{{ food.total_dislikenum }}</span></i>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#    </div>#}
 
             <div class="explore-main-container">
+                {% for food in display_food %}
+
                 <div class="item">
-                    <a href="#">
-                        <div class="item-img" style="background-image: url('{% static 'images/food2.jpg' %}')">
+                    <a href="{% url 'food:fooddetail' food.id %}">
+                    {% thumbnail food.cover_image "300x200" crop="center" as im %}
+                        <div class="item-img" style="background-image: url('{{ im.url }}')">
+                    {% endthumbnail %}
                             <div class="item-main">
-                                <h4 class="item-title">苏格格巴登巴登小蛋糕</h4>
+                                <h4 class="item-title">{{ food.title }}</h4>
                                 <div class="item-bottom">
                                     <div class="item-create-user">
-                                        分享自 Rlilyyy
+                                        分享自 {{ food.user }}
                                     </div>
                                     <div class="icons">
-                                        <i class="fa fa-smile-o"><span class="like-num">123</span></i>
-                                        <i class="fa fa-frown-o"><span class="dislike-num">321</span></i>
+                                        <i class="fa fa-smile-o"><span class="like-num">{{ food.total_likenum }}</span></i>
+                                        <i class="fa fa-frown-o"><span class="dislike-num">{{ food.total_dislikenum }}</span></i>
                                     </div>
                                 </div>
                             </div>
@@ -40,10 +70,11 @@
                     </a>
                 </div>
 
+                {% endfor %}
+
             </div>
-        </div>
+    </div>
+
 
 {% endblock %}
 {% block custom_script %}{% endblock %}
-
-{% load staticfiles %}
