@@ -38,6 +38,7 @@ class FoodListView(View):
         p = Paginator(cur_category_food, 3, request=request)
         food_page = p.page(page)
         return render(request, "food/food_list.html", {
+            'category':category,
             'all_food':all_food,
             'all_category':all_category,
             'cur_category_food':cur_category_food,

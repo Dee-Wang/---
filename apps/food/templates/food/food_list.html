@@ -17,20 +17,13 @@
             <div class="list-tab-container">
                 <ul class="tab-ul clearfix">
 
-                    <a href="?category=" class="{% ifequal category '' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}">最近热门</a>
+                    <a href="?category=" class="{% ifequal category '' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}">全部</a>
 
-                    {% for category in all_category %}
+                    {% for the_category in all_category %}
 
-                    <a href="?category={{ category.category_name }}" class="{% ifequal category '{{ category.category_name }}' %}tab-ul-item current-item{% else %}tab-ul-item{% endifequal %}">{{ category.category_name }}</a>
+                        <a href="?category={{ the_category.category_name }}"><li class="tab-ul-item {% ifequal category the_category.category_name %}current-item{% endifequal %}">{{ the_category.category_name }}</li></a>
 
                     {% endfor %}
-
-{#                    <a href="#"><li class="tab-ul-item current-item">最近热门</li></a>#}
-{#                    <a href="#"><li class="tab-ul-item">精选</li></a>#}
-{#                    <a href="#"><li class="tab-ul-item">零食</li></a>#}
-{#                    <a href="#"><li class="tab-ul-item">小吃</li></a>#}
-{#                    <a href="#"><li class="tab-ul-item">高档</li></a>#}
-{#                    <a href="#"><li class="tab-ul-item">发现</li></a>#}
                 </ul>
             </div>
 
