@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'pure_pagination',
     'operation',
     'sorl.thumbnail',
+    'taggit',
 ]
 
 # UserProfile 覆盖了 django 内置的 user 表

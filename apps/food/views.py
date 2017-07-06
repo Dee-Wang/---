@@ -11,6 +11,9 @@ from django.shortcuts import render_to_response
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Food, FoodCategory
+from .forms import FoodForm
+
+from utils.mixin_utils import LoginRequiredMixin
 
 
 # 食物列表
@@ -58,9 +61,18 @@ class FoodDetailView(View):
 
 
 # 食物发布
-class FoodCreateView(View):
+
+class FoodCreateView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, "food/food_create.html", {})
+        food_form = FoodForm()
+        return render(request, "food/food_create.html", {
+            'food_form':food_form,
+        })
+
+    def post(self, request):
+        food_form = FoodForm(request.POST, request.FILES)
+        if food_form.is_valid():
+            food_name = request.POST.get()
 
 
 # 发现食物
