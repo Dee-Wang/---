@@ -92,18 +92,18 @@ class UserCollectTopic(models.Model):
         verbose_name_plural = verbose_name
 
 
-# 专题和食物之间的关系
-class FoodInTopic(models.Model):
-    food = models.ForeignKey(Food, verbose_name="美食")
-    topic = models.ForeignKey(FoodTopic, verbose_name="所属专题")
-    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
-
-    def __str__(self):
-        return "{0}在专题{1}中".format(self.food.title, self.topic.title)
-
-    class Meta:
-        verbose_name = "食物和专题"
-        verbose_name_plural = verbose_name
+# # 专题和食物之间的关系
+# class FoodInTopic(models.Model):
+#     food = models.ForeignKey(Food, verbose_name="美食")
+#     topic = models.ForeignKey(FoodTopic, verbose_name="所属专题")
+#     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
+#
+#     def __str__(self):
+#         return "{0}在专题{1}中".format(self.food.title, self.topic.title)
+#
+#     class Meta:
+#         verbose_name = "食物和专题"
+#         verbose_name_plural = verbose_name
 
 
 

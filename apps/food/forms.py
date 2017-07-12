@@ -12,4 +12,4 @@ class FoodForm(forms.ModelForm):
         # 指定model
         model = Food
         # 指定想要修改的字段
-        fields = ['cover_image','title','description', 'link','category', 'user','tags']
+        fields = ['cover_image','title','description', 'link','category','tags']

@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from user.models import UserProfile
 
@@ -30,6 +31,10 @@ class ForumPost(models.Model):
 
     def __str__(self):
         return self.forum_title
+
+    # 获取美食详情的界面的URL地址
+    def get_absolute_url(self):
+        return reverse('forum:forumdetail', kwargs={'forum_id':self.id})
 
     class Meta:
         verbose_name = "帖子信息"

@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^topiccollection/$', TopicCollectionView.as_view(), name='topiccollection'),
 
     # 用户首页
-    url(r'^userindex/$', UserIndexView.as_view(), name='userindex'),
+    url(r'^userindex/(?P<user_id>\d+)/$', UserIndexView.as_view(), name='userindex'),
 
     # 用户设置,包括用户的个人信息设置和用户的背景图片的设置
     url(r'^usersetting/$', UserSettingView.as_view(), name='usersetting'),

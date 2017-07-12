@@ -7,13 +7,16 @@ from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
+from django.views.decorators.http import require_GET
 
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Food, FoodCategory
 from .forms import FoodForm
+from actions.utils import create_action
 
 from utils.mixin_utils import LoginRequiredMixin
+from constants import *
 
 
 # 食物列表
@@ -61,18 +64,30 @@ class FoodDetailView(View):
 
 
 # 食物发布
-
 class FoodCreateView(LoginRequiredMixin, View):
     def get(self, request):
-        food_form = FoodForm()
+        form = FoodForm()
+        categorys = FoodCategory.objects.all()
         return render(request, "food/food_create.html", {
-            'food_form':food_form,
+            'form':form,
+            'categorys':categorys,
         })
 
     def post(self, request):
-        food_form = FoodForm(request.POST, request.FILES)
-        if food_form.is_valid():
-            food_name = request.POST.get()
+        form = FoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            food = form.save(commit=False)
+            food.user = request.user
+            food.save()
+            # food.save_m2m()
+            create_action(request.user, SHARE, food)
+            return HttpResponseRedirect(reverse('food:foodlist'))
+        else:
+            categorys = FoodCategory.objects.all()
+            return render(request, "food/food_create.html", {
+                'form': form,
+                'categorys': categorys,
+            })
 
 
 # 发现食物

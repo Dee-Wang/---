@@ -14,15 +14,18 @@ from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm,RegisterForm
 from utils.email_send import send_email
 from topic.models import FoodTopic
+from actions.models import Action
 
 
 # 网站首页
 class IndexView(View):
     def get(self, request):
         all_topics = FoodTopic.objects.all()
+        cur_user = request.user
 
         return render(request, "index.html", {
             'all_topics':all_topics,
+            'user':cur_user,
         })
 
 
@@ -135,7 +138,12 @@ class TopicCollectionView(View):
 # 用户首页
 class UserIndexView(View):
     def get(self, request):
-        return render(request, "user/user_index.html")
+        cur_user = request.user
+        recent_actions = Action.objects.filter(user=cur_user).all()[:10]
+        return render(request, "user/user_index.html", {
+            'user':cur_user,
+            'actions':recent_actions,
+        })
 
 
 # 用户设置，包括用户个人信息设置和用户背景图设置

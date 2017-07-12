@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'user',
     'location',
     'food',
@@ -56,6 +57,10 @@ INSTALLED_APPS = [
     'operation',
     'sorl.thumbnail',
     'taggit',
+    'actions',
+    'utils',
+    'widget_tweaks',
+    'datetime',
 ]
 
 # UserProfile 覆盖了 django 内置的 user 表

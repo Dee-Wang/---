@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserWantEat, UserHaveAte, UserCollectTopic, UserRecommendForum, FoodInTopic
+from .models import UserWantEat, UserHaveAte, UserCollectTopic, UserRecommendForum
 
 class UserWantEatAdmin(admin.ModelAdmin):
     list_display = ('user', 'food', 'add_time')
@@ -26,10 +26,10 @@ class UserRecommendForumAdmin(admin.ModelAdmin):
     list_filter = ('user', 'forum')
 
 
-class FoodInTopicAdmin(admin.ModelAdmin):
-    list_display = ('food', 'topic', 'add_time')
-    search_fields = ['food', 'topic']
-    list_filter = ('food', 'topic')
+# class FoodInTopicAdmin(admin.ModelAdmin):
+#     list_display = ('food', 'topic', 'add_time')
+#     search_fields = ['food', 'topic']
+#     list_filter = ('food', 'topic')
 
 
 
@@ -38,4 +38,4 @@ admin.site.register(UserWantEat, UserWantEatAdmin)
 admin.site.register(UserHaveAte, UserHaveAteAdmin)
 admin.site.register(UserCollectTopic, UserCollectTopicAdmin)
 admin.site.register(UserRecommendForum, UserRecommendForumAdmin)
-admin.site.register(FoodInTopic, FoodInTopicAdmin)
+# admin.site.register(FoodInTopic, FoodInTopicAdmin)

@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from user.models import UserProfile
 
@@ -42,6 +43,10 @@ class Food(models.Model):
         else:
             tags_list = []
         return tags_list
+
+    # 获取美食详情的界面的URL地址
+    def get_absolute_url(self):
+        return reverse('food:fooddetail', kwargs={'food_id':self.id})
 
 
     class Meta:

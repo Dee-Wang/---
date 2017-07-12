@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.utils import timezone
 
 from constants import *
 
@@ -39,6 +40,5 @@ class Action(models.Model):
         return action_classes.get(self.verb, "")
 
     class Meta:
-        ordering = ('-create_time')
         verbose_name = "活动"
         verbose_name_plural = verbose_name
