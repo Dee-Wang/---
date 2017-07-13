@@ -13,19 +13,23 @@ from django.shortcuts import render_to_response
 from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm,RegisterForm
 from utils.email_send import send_email
+from utils.mixin_utils import LoginRequiredMixin
 from topic.models import FoodTopic
 from actions.models import Action
+from actions.utils import create_action
+from food.models import Food
+from constants import *
 
 
 # 网站首页
 class IndexView(View):
     def get(self, request):
         all_topics = FoodTopic.objects.all()
-        cur_user = request.user
+        # cur_user = request.user
 
         return render(request, "index.html", {
             'all_topics':all_topics,
-            'user':cur_user,
+            # 'user':cur_user,
         })
 
 
@@ -120,25 +124,34 @@ class ActiveView(View):
 
 # 当前用户在关注谁
 class UserFollowingView(View):
-    def get(self, request):
-        return render(request, "user/user_following.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/user_following.html", {
+            'user':cur_user,
+        })
 
 # 当前用户在关注谁
 class UserFollowerView(View):
-    def get(self, request):
-        return render(request, "user/user_follower.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/user_follower.html", {
+            'user':cur_user,
+        })
 
 
 # 用户收藏的话题
 class TopicCollectionView(View):
-    def get(self, request):
-        return render(request, "user/topic_collection.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/topic_collection.html", {
+            'user':cur_user,
+        })
 
 
-# 用户首页
+# 用户个人首页的部分
 class UserIndexView(View):
-    def get(self, request):
-        cur_user = request.user
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
         recent_actions = Action.objects.filter(user=cur_user).all()[:10]
         return render(request, "user/user_index.html", {
             'user':cur_user,
@@ -148,25 +161,60 @@ class UserIndexView(View):
 
 # 用户设置，包括用户个人信息设置和用户背景图设置
 class UserSettingView(View):
-    def get(self, request):
-        return render(request, "user/user_setting.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/user_setting.html", {
+            'user':cur_user,
+        })
 
 
 # 用户吃过的食物的列表
 class UserHaveEatedView(View):
-    def get(self, request):
-        return render(request, "user/user_haveeated.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/user_haveeated.html", {
+            'user':cur_user,
+        })
 
 
 # 用户想吃的食物的列表
 class UserWantEatView(View):
-    def get(self, request):
-        return render(request, "user/user_wanteat.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        return render(request, "user/user_wanteat.html", {
+            'user':cur_user,
+        })
 
 
-# 用户分享
+# 用户分享的信息
 class UserShareView(View):
-    def get(self, request):
-        return render(request, "user/user_share.html")
+    def get(self, request, user_id):
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        all_food = Food.objects.all()
+        cur_user_foods = all_food.filter(user=cur_user)
+        return render(request, "user/user_share.html", {
+            'user':cur_user,
+            'foods':cur_user_foods,
+        })
+
+
+# 用户关注其他用户的动作
+class FollowView(LoginRequiredMixin, View):
+    def post(self, request):
+        cur_user = request.user
+        user_id = int(request.POST.get('id', ''))
+        action = request.POST.get('action', '')
+        if user_id and action:
+            user = UserProfile.objects.get(pk=user_id)
+            if action == 'follow':
+                cur_user.following.add(user)
+                create_action(cur_user, FOLLOW, user)
+            elif action == 'unfollow':
+                cur_user.following.remove(user)
+            else:
+                return JsonResponse(JSON_FAIL(STATUS_INVALID_ARGUMENTS))
+            return JsonResponse({'status':True})
+        return JsonResponse(JSON_FAIL(STATUS_INVALID_ARGUMENTS), status=400)
+
 
 

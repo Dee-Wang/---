@@ -3,6 +3,7 @@
 {% load humanize %}
 {% block custom_css %}
     <link href="{% static 'css/user_index.css' %}" rel="stylesheet">
+{#    <link href="{% static 'css/home_index.css' %}" rel="stylesheet">#}
 {% endblock %}
 {% block custom_head %}
     {{ user.username }}的主页
@@ -17,7 +18,8 @@
                         <i class="fa {{ action.get_action_class }}"></i>
                         <span class="timeline-item-username">{{ action.user }}</span>
                         <span class="timeline-item-action">{{ action.verb }}</span>
-                        <span class="timeline-item-theme"><a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a></span>
+{#                        <span class="timeline-item-theme"><a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a></span>#}
+                        <span class="timeline-item-theme">{{ action.target }}</span>
                         <span class="timeline-item-time">{{ action.add_time | naturaltime}}</span>
                     </div>
                     {% endfor %}

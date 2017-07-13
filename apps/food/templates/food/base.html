@@ -42,7 +42,7 @@
                 <a href="{% url 'user:logout' %}">
                   <button type="button" name="button">登出</button>
                 </a>
-                <a href="{% url 'user:userindex' %}" class="user-name">
+                <a href="{% url 'user:userindex' request.user.id %}" class="user-name">
                   <button type="button" name="user-name-btn" class="user-name-btn">{{ request.user.username }}</button>
                 </a>
              {% else %}

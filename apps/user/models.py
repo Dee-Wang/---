@@ -24,8 +24,8 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.username
 
-    def get_absolute_url(self):
-        return reverse('user:userindex', kwargs={'user_id':self.id})
+    # def get_absolute_url(self):
+    #     return reverse('user:userindex', kwargs={'user_id':self.id})
 
     class Meta:
         verbose_name = "用户信息"

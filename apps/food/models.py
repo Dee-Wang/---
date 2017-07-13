@@ -44,9 +44,9 @@ class Food(models.Model):
             tags_list = []
         return tags_list
 
-    # 获取美食详情的界面的URL地址
-    def get_absolute_url(self):
-        return reverse('food:fooddetail', kwargs={'food_id':self.id})
+    # # 获取美食详情的界面的URL地址
+    # def get_absolute_url(self):
+    #     return reverse('food:fooddetail', kwargs={'food_id':self.id})
 
 
     class Meta:
