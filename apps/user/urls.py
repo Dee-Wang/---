@@ -5,7 +5,7 @@ from django.conf.urls import url
 
 from .views import LoginView, RegisterView, ActiveView, LogoutView, UserFollowingView, UserShareView
 from .views import TopicCollectionView, UserIndexView, UserSettingView, UserHaveEatedView, UserFollowerView, UserWantEatView
-from .views import FollowView
+from .views import FollowView, GetCityView
 
 urlpatterns = [
     # 账户相关
@@ -41,4 +41,6 @@ urlpatterns = [
     # 用户行为相关
     # 用户关注的动作
     url(r'^follow/$', FollowView.as_view(), name='follow'),
+    # 根据省份获取城市
+    url(r'^get_cities/$', GetCityView.as_view(), name='get_cities'),
 ]

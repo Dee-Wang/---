@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import UserWantEat, UserHaveAte, UserCollectTopic, UserRecommendForum
 
+
 class UserWantEatAdmin(admin.ModelAdmin):
     list_display = ('user', 'food', 'add_time')
     search_fields = ['user', 'food']
@@ -26,10 +27,10 @@ class UserRecommendForumAdmin(admin.ModelAdmin):
     list_filter = ('user', 'forum')
 
 
-# class FoodInTopicAdmin(admin.ModelAdmin):
-#     list_display = ('food', 'topic', 'add_time')
-#     search_fields = ['food', 'topic']
-#     list_filter = ('food', 'topic')
+class FoodInTopicAdmin(admin.ModelAdmin):
+    list_display = ('food', 'topic', 'add_time')
+    search_fields = ['food', 'topic']
+    list_filter = ('food', 'topic')
 
 
 

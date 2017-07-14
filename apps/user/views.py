@@ -7,11 +7,12 @@ from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
+from django.contrib import messages
 
 # from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import UserProfile, EmailVerifyRecord
-from .forms import LoginForm,RegisterForm
+from .forms import LoginForm,RegisterForm, ModifyUserInfoForm
 from utils.email_send import send_email
 from utils.mixin_utils import LoginRequiredMixin
 from topic.models import FoodTopic
@@ -19,6 +20,8 @@ from actions.models import Action
 from actions.utils import create_action
 from food.models import Food
 from constants import *
+from operation.models import UserWantEat, UserHaveAte, UserCollectTopic, UserLikeFood, UserDislikeFood, UserRecommendForum
+from location.models import Province, City, Store
 
 
 # 网站首页
@@ -126,16 +129,21 @@ class ActiveView(View):
 class UserFollowingView(View):
     def get(self, request, user_id):
         cur_user = UserProfile.objects.get(id=int(user_id))
+        followings = cur_user.following.all()
         return render(request, "user/user_following.html", {
             'user':cur_user,
+            'followings':followings,
         })
 
-# 当前用户在关注谁
+
+# 当前用户被谁关注
 class UserFollowerView(View):
     def get(self, request, user_id):
         cur_user = UserProfile.objects.get(id=int(user_id))
+        followers = cur_user.followers.all()
         return render(request, "user/user_follower.html", {
             'user':cur_user,
+            'followers':followers,
         })
 
 
@@ -143,8 +151,14 @@ class UserFollowerView(View):
 class TopicCollectionView(View):
     def get(self, request, user_id):
         cur_user = UserProfile.objects.get(id=int(user_id))
+        curuser_coll_topics = UserCollectTopic.objects.filter(user=cur_user)
+        coll_topics_list = []
+        for user_coll_topic in curuser_coll_topics:
+            coll_topic = FoodTopic.objects.get(id=user_coll_topic.topic_id)
+            coll_topics_list.append(coll_topic)
         return render(request, "user/topic_collection.html", {
             'user':cur_user,
+            'collections':coll_topics_list,
         })
 
 
@@ -159,21 +173,55 @@ class UserIndexView(View):
         })
 
 
-# 用户设置，包括用户个人信息设置和用户背景图设置
-class UserSettingView(View):
+# 用户修改和人的信息
+class UserSettingView(LoginRequiredMixin, View):
     def get(self, request, user_id):
+        provinces = Province.objects.all()
+        cities = City.objects.all()
         cur_user = UserProfile.objects.get(id=int(user_id))
+        form = ModifyUserInfoForm(instance=cur_user)
         return render(request, "user/user_setting.html", {
             'user':cur_user,
+            'form':form,
+            'provinces':provinces,
+            'cities':cities,
         })
+
+    def post(self, request, user_id):
+        provinces = Province.objects.all()
+        cities = City.objects.all()
+        cur_user = UserProfile.objects.get(id=int(user_id))
+        form = ModifyUserInfoForm(instance=cur_user, data=request.POST, files=request.FILE)
+        if form.is_valid():
+            print(form.cleaned_data)
+            form.save()
+            form.save_m2m()
+            messages.success(request, PROFILE_UPDATE_SUCCESS)
+        else:
+            messages.error(request, PROFILE_UPDATE_FAIL)
+        return render(request, "user/user_setting.html", {
+            'user':cur_user,
+            'form':form,
+            'provinces': provinces,
+            'cities': cities,
+        })
+
+
 
 
 # 用户吃过的食物的列表
 class UserHaveEatedView(View):
     def get(self, request, user_id):
         cur_user = UserProfile.objects.get(id=int(user_id))
+        curuser_ate_food = UserHaveAte.objects.filter(user=cur_user)
+        user_atefood_list = []
+        for ate_food in curuser_ate_food:
+            user_ate_food = Food.objects.get(id=ate_food.food_id)
+            user_atefood_list.append(user_ate_food)
+
         return render(request, "user/user_haveeated.html", {
             'user':cur_user,
+            'foods':user_atefood_list,
         })
 
 
@@ -181,8 +229,14 @@ class UserHaveEatedView(View):
 class UserWantEatView(View):
     def get(self, request, user_id):
         cur_user = UserProfile.objects.get(id=int(user_id))
+        curuser_want_food = UserWantEat.objects.filter(user=cur_user)
+        user_wantfood_list = []
+        for want_food in curuser_want_food:
+            user_want_food = Food.objects.get(id=want_food.food_id)
+            user_wantfood_list.append(user_want_food)
         return render(request, "user/user_wanteat.html", {
             'user':cur_user,
+            'foods':user_wantfood_list,
         })
 
 
@@ -215,6 +269,14 @@ class FollowView(LoginRequiredMixin, View):
                 return JsonResponse(JSON_FAIL(STATUS_INVALID_ARGUMENTS))
             return JsonResponse({'status':True})
         return JsonResponse(JSON_FAIL(STATUS_INVALID_ARGUMENTS), status=400)
+
+
+# 获取当前用户所在的城市
+class GetCityView(View):
+    def get(self, request):
+        province = request.GET.get('province')
+        cities = City.objects.filter(province__province_name=province).values_list('id', 'name')
+        return JsonResponse(list(cities), safe=False)
 
 
 

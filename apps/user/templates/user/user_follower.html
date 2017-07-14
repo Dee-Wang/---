@@ -1,72 +1,38 @@
 {% extends 'user/user_base.html' %}
 {% load staticfiles %}
-{% block custom_title %}用户粉丝{% endblock %}
+{% load thumbnail %}
+{% load humanize %}
 {% block custom_css %}
     <link href="{% static 'css/user_list.css' %}" rel="stylesheet">
 {% endblock %}
+{% block custom_head %}{{ user.username }}的粉丝们{% endblock %}
+{% block content %}
+<div class="tab-container">
+    <div class="user-item-container clearfix">
+        {% if followers %}
+            {% for user in followers %}
+            <div class="user-item">
+                <a href="{% url 'user:userindex' user.id %}">
+                    {% thumbnail user.image "65x65" as im %}
+                    <div class="user-item-portrait" style="background-image: url('{{im.url}}')"></div>
+                    {% empty %}
+                    <div class="user-item-portrait"></div>
+                    {% endthumbnail %}
+                </a>
+                <a href="{% url 'user:userindex' user.id %}"><span class="user-item-info">{{ user.username }}</span></a>
+                <a href="{% url 'user:userindex' user.id %}"><button type="button" name="follow" class="user-item-follow-btn">查看资料</button></a>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% if request.TAB == 'following' %}
+                <p>ta还没关注任何人</p>
+            {% else %}
+                <p>ta还没被任何人关注</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
 {% block custom_js %}
     <script src="{% static 'js/user_list.js' %}"></script>
-{% endblock %}
-{% block content %}
-    <div class="tab-container">
-            <div class="user-item-container clearfix">
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn has-follow">取消关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-
-                <div class="user-item">
-                    <a href="#"><div class="user-item-portrait"></div></a>
-                    <a href="#"><span class="user-item-info">滨滨和泓泓</span></a>
-                    <a href="#"><span class="user-item-info">45,012 人关注他</span></a>
-                    <a href="#"><button type="button" name="follow" class="user-item-follow-btn">关注</button></a>
-                </div>
-            </div>
-
-        </div>
 {% endblock %}
