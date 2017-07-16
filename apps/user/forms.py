@@ -3,6 +3,7 @@ __author__ = 'Dee'
 __date__ = '17-6-19 上午10:49'
 
 from django import forms
+# from django.forms.extras.widgets import SelectDateWidget
 
 from captcha.fields import CaptchaField
 
@@ -28,7 +29,7 @@ class RegisterForm(forms.Form):
 class ModifyUserInfoForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['image', 'gender', 'birthday', 'location', 'introduction']
-        widgets = {
-            'birthday': forms.SelectDateWidget(years=range(1950,2017), attrs={'class':'selections'})
-        }
+        fields = ['image', 'gender', 'location', 'introduction']
+        # widgets = {
+        #     'birthday': forms.SelectDateWidget(years=range(1950,2017), attrs={'class':'selections'})
+        # }

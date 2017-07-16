@@ -177,7 +177,8 @@ class UserIndexView(View):
 class UserSettingView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         provinces = Province.objects.all()
-        cities = City.objects.all()
+        for province in provinces:
+            cities = province.city_set.all()
         cur_user = UserProfile.objects.get(id=int(user_id))
         form = ModifyUserInfoForm(instance=cur_user)
         return render(request, "user/user_setting.html", {
@@ -189,13 +190,14 @@ class UserSettingView(LoginRequiredMixin, View):
 
     def post(self, request, user_id):
         provinces = Province.objects.all()
-        cities = City.objects.all()
+        for province in provinces:
+            cities = province.city_set.all()
         cur_user = UserProfile.objects.get(id=int(user_id))
-        form = ModifyUserInfoForm(instance=cur_user, data=request.POST, files=request.FILE)
+        form = ModifyUserInfoForm(instance=cur_user, data=request.POST, files=request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
-            form.save_m2m()
+            # form.save_m2m()
             messages.success(request, PROFILE_UPDATE_SUCCESS)
         else:
             messages.error(request, PROFILE_UPDATE_FAIL)
@@ -275,7 +277,8 @@ class FollowView(LoginRequiredMixin, View):
 class GetCityView(View):
     def get(self, request):
         province = request.GET.get('province')
-        cities = City.objects.filter(province__province_name=province).values_list('id', 'name')
+        # cities = City.objects.filter(province__province_name=province.province_name).values_list('id', 'name')
+        cities = City.objects.filter(province__id=province.id).values_list('id', 'name')
         return JsonResponse(list(cities), safe=False)
 
 

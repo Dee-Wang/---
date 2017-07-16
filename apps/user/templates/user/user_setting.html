@@ -5,7 +5,6 @@
 {% load widget_tweaks %}
 {% block custom_css %}
     <link href="{% static 'css/user_profile.css' %}" rel="stylesheet">
-{#    <link href="{% static 'css/user_settings.css' %}" rel="stylesheet">#}
 {% endblock %}
 {% block custom_head %}修改{{ user.username }}的信息{% endblock %}
 {% block content %}
@@ -47,10 +46,10 @@
 
             </div>
 
-            <div class="form-item">
-                <label class="form-item-label">出生日期</label>
-                {{ form.birthday | add_class:"selections"}}
-            </div>
+{#            <div class="form-item">#}
+{#                <label class="form-item-label">出生日期</label>#}
+{#                {{ form.birthday | add_class:"selections"}}#}
+{#            </div>#}
 
             <div class="form-item">
                 <label class="form-item-label">性别</label>

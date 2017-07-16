@@ -15,7 +15,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField(max_length=8, choices=(("male", "先生"), ("female", "女士")), default="male", verbose_name="性别")
     birthday = models.DateTimeField(verbose_name="出生日期", null=True, blank=True)
     phone_num = models.CharField(max_length=11, verbose_name="手机号码", null=True, blank=True)
-    image = models.ImageField(max_length=128, upload_to='users/image/%Y/%m/%d', verbose_name='头像',default="/media/image/superman.jpg")
+    image = models.ImageField(max_length=128, upload_to='media/user/image/%Y/%m/%d', verbose_name='头像',default="/media/image/superman.jpg")
     email = models.CharField(max_length=32, verbose_name="个人邮箱", default="")
     # userwantfood = models.ManyToManyField(Food, related_name="wantfood", verbose_name="用户想吃的食物", blank=True, symmetrical=False)
     # usercolltopic = models.ManyToManyField(FoodTopic, related_name="colltopic", verbose_name="用户收藏的专题", blank=True, symmetrical=False)
