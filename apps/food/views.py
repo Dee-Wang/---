@@ -14,6 +14,8 @@ from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from .models import Food, FoodCategory
 from .forms import FoodForm
 from actions.utils import create_action
+from usercomments.models import FoodComment
+from usercomments.forms import FoodCommentsForm
 
 from utils.mixin_utils import LoginRequiredMixin
 from constants import *
@@ -35,7 +37,7 @@ class FoodListView(View):
             cur_category_food = all_food
 
 
-        # 对课程进行分页
+        # 对事物列表分页
         try:
             page = request.GET.get('page', 1)
         except PageNotAnInteger:
@@ -55,12 +57,21 @@ class FoodListView(View):
 # 食物详情
 class FoodDetailView(View):
     def get(self, request, food_id):
+        cur_user = request.user
         all_food = Food.objects.all()
         cur_food = Food.objects.get(id=int(food_id))
         return render(request, "food/food_detail.html", {
             'all_food':all_food,
-            'cur_food':cur_food,
+            'food':cur_food,
+            'user':cur_user,
         })
+
+    def post(self, request, food_id):
+        cur_user = request.user
+        if cur_user.is_authenticated():
+            comment_form = FoodCommentsForm(request.POST)
+
+
 
 
 # 食物发布
@@ -118,7 +129,6 @@ class FoodExploreView(View):
             'all_food':all_food,
             'display_food':display_food,
         })
-
 
 
 

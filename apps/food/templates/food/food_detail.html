@@ -1,6 +1,7 @@
 {% extends 'food/base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% load widget_tweaks %}
 {% block custom_title %}
     美食详情
 {% endblock %}
@@ -12,129 +13,164 @@
 {% endblock %}
 {% block content %}
     <div class="detail-container">
-            <div class="main-container clearfix">
-                <div class="food-left fl">
-                    <div class="food-left-container">
-                        <div class="food-img">
-                            <img src="{{ MEDIA_URL }}{{ cur_food.cover_image }}" alt="商品图片" width="100%" height="100%">
-                            <div class="food-img-shadow">
-                                <div class="shadow-icons">
-
-                                    <div class="icon" id="want" data-id="123" data-action="321">
-
-                                            <i class="fa fa-cutlery">
-                                                <span class="fa-margin">想吃</span>
-                                            </i>
-
-                                    </div>
-
-                                    <div class="icon" id="eated" data-id="222" data-action="333">
-
-                                            <i class="fa fa-hand-peace-o">
-                                                <span class="fa-margin">吃过</span>
-                                            </i>
-
-                                    </div>
-                                </div>
+    <div class="main-container clearfix">
+        <div class="food-left fl">
+            <div class="food-left-container">
+                <div class="food-img">
+                    {% thumbnail food.cover_image "490x367" crop="center" as im %}
+                        <img src="{{ im.url }}" alt="商品图片" width="100%" height="100%">
+                    {% endthumbnail %}
+                    <div class="food-img-shadow">
+                        <div class="shadow-icons">
+                            {% if is_wta %}
+                            <div class="icon clicked" id="want" data-id="{{ food.id }}" data-action="unwta">
+                                <a href="#"><i class="fa fa-cutlery">
+                                    <span class="fa-margin">想吃</span>
+                                </i></a>
                             </div>
-                        </div>
-
-                        <div class="food-like-share">
-
-
-                            <div class="circle" id="like" data-id="" data-action="">
-                                <i class="fa fa-thumbs-o-up"></i>
+                            {% else %}
+                            <div class="icon" id="want" data-id="{{ food.id }}" data-action="wta">
+                                <a href="#"><i class="fa fa-cutlery">
+                                    <span class="fa-margin">想吃</span>
+                                </i></a>
                             </div>
-                            <div class="circle" id="dislike" data-id="" data-action="">
-                                <i class="fa fa-thumbs-o-down"></i>
+                            {% endif %}
+
+                            {% if is_ate %}
+                            <div class="icon clicked" id="ate" data-id="{{ food.id }}" data-action="unate">
+                                <a href="#"><i class="fa fa-hand-peace-o">
+                                    <span class="fa-margin">吃过</span>
+                                </i></a>
                             </div>
-                            <div class="circle" id="share" data-id="" data-action="">
-                                <i class="fa fa-share-alt"></i>
+                            {% else %}
+                            <div class="icon" id="ate" data-id="{{ food.id }}" data-action="ate">
+                                <a href="#"><i class="fa fa-hand-peace-o">
+                                    <span class="fa-margin">吃过</span>
+                                </i></a>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="comments-container">
-                        <div class="comments-wraaper clearfix">
-                            <textarea name="comments" rows="3" class="comments-area"></textarea>
-                            <button type="button" name="sendBtn" class="send-btn">发表评论</button>
-                        </div>
-                        <h2 class="comments-title">全部评论</h2>
-                        <div class="comments-main">
-
-                            <div class="comments-item clearfix">
-                                <div class="comments-user-img" style="background-image: url('{% static 'images/food2.jpg' %}')"></div>
-                                <div class="comments-user-name">
-                                    <span class="name"><a href="#">滨滨和泓泓</a></span>
-                                    <span class="comments-time">05-21</span>
-                                </div>
-                                <div class="comments-item-content">
-                                    真心觉得志玲姐姐两季花样姐姐用自己的实际行动，树立了一个大写的偶像的行为标准！她博学，她不畏任何艰难险阻，她在南极冰海里畅游的画面，让我激动落泪，她真得配的起女神二字和全世界的喜爱！了不起！
-                                </div>
-                            </div>
-
-
+                            {% endif %}
                         </div>
                     </div>
                 </div>
 
-                <div class="food-right fl">
-                    <h2 class="food-title">{{ cur_food.food_name }}</h2>
-                    <div class="food-sharer">
-                        <div class="sharer-img" style="background-image: url('{% static 'images/food2.jpg' %}')"></div>
-                        <span class="sharer-name">{{ cur_food.user.username }}</span>
-                        <span class="share-text">分享于</span>
-                        <span class="share-time">{{ cur_food.add_time }}</span>
+                <div class="food-like-share">
+                    <div class="circle {% if score == 1 %}clicked{% endif %}" id="like" data-id="{{ food.id }}" data-action="like">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <span id="like-count">{{ food.rating.likes }}</span>
                     </div>
-                    <div class="food-item-title">
-                        简介
+                    <div class="circle {% if score == -1 %}clicked{% endif %}" id="dislike" data-id="{{ food.id }}" data-action="dislike">
+                        <i class="fa fa-thumbs-o-down"></i>
+                        <span id="dislike-count">{{ food.rating.dislikes }}</span>
                     </div>
-                    <p class="desc">
-                        {{ cur_food.description }}
-                    </p>
-
-                        <div class="food-buy">
-                            <a href="{{ cur_food.link }}">
-                                <i class="fa fa-link"></i>
-                                来源链接
-                            </a>
-                        </div>
-
-                    <div class="food-item-title">
-                        标签
-                    </div>
-                    <div class="tags">
-                        {% if cur_food.get_tags_list %}
-                            {% for tag in cur_food.get_tags_list %}
-                            <span class="tag"><a href="#">{{ tag }}</a></span>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-
-                    <div class="food-item-title">
-                        相似物品
-                    </div>
-                    <div class="similar-container clearfix">
-                        <div class="similar-item">
-                            <a href="#"><img src="{% static 'images/topic1.jpg' %}" alt="" width="100%" height="185px"></a>
-                            <span class="similar-title">复古森女少女格子松紧腰半身裙</span>
-                        </div>
-                        <div class="similar-item">
-                            <a href="#"><img src="{% static 'images/topic2.jpg' %}" alt="" width="100%" height="185px"></a>
-                            <span class="similar-title">香甜巧克力</span>
-                        </div>
-                        <div class="similar-item">
-                            <a href="#"><img src="{% static 'images/topic3.jpg' %}" alt="" width="100%" height="185px"></a>
-                            <span class="similar-title">肥猪肉</span>
-                        </div>
-                        <div class="similar-item">
-                            <a href="#"><img src="{% static 'images/topic4.jpg' %}" alt="" width="100%" height="185px"></a>
-                            <span class="similar-title">82年雪碧</span>
-                        </div>
+                    <div class="circle" id="share">
+                        <i class="fa fa-share-alt"></i>
                     </div>
                 </div>
             </div>
+
+            <div class="comments-container">
+                <div class="comments-wraaper clearfix">
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        {{ comment_form.content | add_class:"comments-area" | attr:"rows:5"}}
+                        <button type="submit" name="sendBtn" class="send-btn">发表评论</button>
+                    </form>
+                </div>
+                <h2 class="comments-title">全部评论</h2>
+                <div class="comments-main">
+                    {% if comments %}
+                        {% for comment in comments %}
+                        <div class="comments-item clearfix">
+                            {% thumbnail comment.user.profile.avatar "50x50" crop="center" as im %}
+                                <div class="comments-user-img" style="background-image: url('{{ im.url }}')"></div>
+                            {% empty %}
+                                <div class="comments-user-img" style="background-image: url('/public/static/images/anonymous.jpg')"></div>
+                            {% endthumbnail %}
+                            <div class="comments-user-name">
+                                <span class="name"><a href="{{ comment.user.get_absolute_url }}">{{ comment.user }}</a></span>
+                                <span class="comments-time">{{ comment.created| date:"Y/m/d H:m" }}</span>
+                            </div>
+                            <div class="comments-item-content">
+                                {{ comment.content }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if comments.has_previous %}
+                        <a href="?page={{ comments.previous_page_number }}">
+                        <button type="button" style="width: 200px;height: 50px;margin: 10px 30% 10px 30%;background-color: rgb(64,163,194);color: #fff;border: none;">上一页</button>
+                        </a>
+                        {% endif %}
+                        {% if comments.has_next %}
+                        <a href="?page={{ comments.next_page_number }}">
+                        <button type="button" style="width: 200px;height: 50px;margin: 10px 30% 20px 30%;background-color: rgb(64,163,194);color: #fff;border: none;">下一页</button>
+                        </a>
+                        {% endif %}
+                    {% else %}
+                    <p>目前没有人评论</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
+
+        <div class="food-right fl">
+            <h2 class="food-title">{{ food.title }}</h2>
+            <div class="food-sharer">
+                {% thumbnail food.user.profile.avatar "20x20" crop="center" as im %}
+                    <div class="sharer-img" style="background-image: url('{{ im.url }}')"></div>
+                {% empty %}
+                    <div class="sharer-img" style="background-image: url('/public/static/images/anonymous.jpg')"></div>
+                {% endthumbnail %}
+                <a href="{{ food.user.get_absolute_url }}"><span class="sharer-name">{{ food.user }}</span></a>
+                <span class="share-text">分享于</span>
+                <span class="share-time">{{ food.created| date:"Y-m-d" }}</span>
+            </div>
+            <div class="food-item-title">
+                简介
+            </div>
+            <p class="desc">
+                {{ food.description }}
+            </p>
+
+                <div class="food-buy">
+                    <a href="{{ food.link }}">
+                        <i class="fa fa-link"></i>
+                        来源链接
+                    </a>
+                </div>
+
+            <div class="food-item-title">
+                标签
+            </div>
+            <div class="tags">
+                {% with tags=food.tags.all %}
+                    {% if tags %}
+                        {% for tag in tags %}
+                            <a href="{% url 'food:tag' tag=tag %}"><div class="tag-item">{{ tag }}</div></a>
+                        {% endfor %}
+                    {% else %}
+                        <p>该食物没有添加标签😊</p>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <div class="food-item-title">
+                相似食物
+            </div>
+            <div class="similar-container clearfix">
+                {% for food in similar_foods %}
+                <div class="similar-item">
+                    <a href="{{ food.get_absolute_url }}">
+                        {% thumbnail food.cover_image "185x185" crop="center" as im %}
+                            <img src="{{ im.url }}" width="100%" height="100%">
+                        {% endthumbnail %}
+                    </a>
+                    <span class="similar-title">{{ food.title }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block custom_script %}
     <script type="text/javascript">
